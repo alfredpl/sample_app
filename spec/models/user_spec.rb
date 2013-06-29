@@ -21,6 +21,11 @@ describe User do
 	it { should respond_to(:remember_token) }
 	it { should respond_to(:authenticate) }
 
+	it { should respond_to(:admin) }
+	it { should respond_to(:authenticate) }
+	it { should be_valid }
+	it { should_not be_admin }
+
   #pending "add some examples to (or delete) #{__FILE__}"
  
    	subject { @user }
@@ -32,6 +37,16 @@ describe User do
   	it {should respond_to (:password_confirmation)}
 
   	it { should be_valid }
+
+
+  	describe "with admin attribute set to 'true'" do
+	  before do
+		@user.save!
+		@user.toggle!(:admin)
+	  end
+	  it { should be_admin }
+	end
+
 	describe "when name is not present" do
 
 	before{ @user.name=" " }
